@@ -1,0 +1,28 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Reem+Kufi" rel="stylesheet">
+<div class="add-todo-form text-center">
+    <h1 style="font-size: 80px ; font-family: 'Montserrat Alternates', sans-serif;">Add an event or an activity.</h1>
+    <div class="form-group">
+        <input class="form-control input-lg" placeholder="Add ToDo." autofocus="" #todoText>
+        <br>
+        <button (click)="addTodo($event, todoText)" class="btn btn-primary btn-block" name="button" style="font-family: 'Reem Kufi', sans-serif; font-size: 30px">Create</button>
+    </div>
+</div>
+
+<div class="todo-list">
+   <div *ngFor="let todo of todos">
+     <div class="col-md-1">
+       <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo)">
+     </div>
+     <div class="col-md-7">
+        <span [class.hidden]="todo.isEditMode">{{todo.text}}</span>
+        <input type="text" [class.hidden]="!todo.isEditMode" [value]="todo.text" (keypress)="updateTodoText($event, todo)">
+        <input type="button" [class.hidden]="!todo.isEditMode" value="Cancel" (click)="setEditState(todo, false)" class="btn btn-warning">
+     </div>
+     <div class="col-md-4 btns">
+        <input (click)="deleteTodo(todo)" type="button" class="btn btn-danger pull-right" value="Delete" style="font-family: 'Reem Kufi', sans-serif;font-size: 15px">
+        <input [class.disabled]="todo.isCompleted"(click)="setEditState(todo, true)" type="button" class="btn btn-default pull-right" value="Edit" style="font-family: 'Reem Kufi', sans-serif;font-size: 15px">
+     </div>
+   </div>
+
+</div>
